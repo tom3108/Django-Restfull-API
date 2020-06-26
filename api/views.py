@@ -5,6 +5,7 @@ from api.serializers import UserSerializer
 from .models import Movie
 from .serializers import MovieSerializer, MovieMiniSerializer
 from django.http.response import HttpResponseNotAllowed
+from rest_framework.decorators import action
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -14,7 +15,8 @@ class UserViewSet(viewsets.ModelViewSet):
 class MovieViewSet(viewsets.ModelViewSet):
     serializer_class = MovieSerializer
     def get_queryset(self):
-        qs = Movie.objects.filter(after_prem=True)
+        qs = Movie.objects.all()
+        #qs = Movie.objects.filter(after_prem=True)
         return qs
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
@@ -47,6 +49,24 @@ class MovieViewSet(viewsets.ModelViewSet):
         movie = self.get_object()
         movie.delete()
         return Response('Deleted movie')
+
+    @action(detail=True)
+    def premiere(self, request, **kwargs):
+        movie = self.get_object()
+        movie.after_prem = True
+        movie.save()
+
+        serializer = MovieSerializer(movie, many=False)
+        return Response(serializer.data)
+
+    @action(detail=False, methods=['post'])
+    def premiere_all(self, request, **kwargs):
+        movies = Movie.objects.all()
+        movies.update(after_prem=request.data['after_prem'])
+
+        serializer = MovieSerializer(movies, many=True)
+        return Response(serializer.data)
+
 
 
 
