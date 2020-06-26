@@ -13,5 +13,10 @@ class MovieSerializer(serializers.ModelSerializer):
         model = Movie
         fields = ['id', 'title', 'content', 'after_prem']
 
+class MovieMiniSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Movie
+        fields = ['title']
+
 
 
