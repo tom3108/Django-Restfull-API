@@ -3,7 +3,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from api.serializers import UserSerializer
 from .models import Movie
-from .serializers import MovieSerializer, MovieMiniSerializer
+from .serializers import MovieSerializer
 from django.http.response import HttpResponseNotAllowed
 from rest_framework.decorators import action
 
