@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Movie, ExtraInfo, Rate
+from .models import Movie, ExtraInfo, Rate, Actor
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -20,6 +20,8 @@ class RateSerializer(serializers.ModelSerializer):
         model = Rate
         fields = ['descript', 'stars']
 
+
+
 class MovieSerializer(serializers.ModelSerializer):
     extra_info = ExtraInfoSerializer(many=False)
     rates = RateSerializer(many=True)
@@ -30,5 +32,9 @@ class MovieSerializer(serializers.ModelSerializer):
 
 
 
-
+class ActorSerializer(serializers.ModelSerializer):
+    movies = MovieSerializer(many=True)
+    class Meta:
+        model = Actor
+        fields = ['name', 'surname', 'movies']
 
