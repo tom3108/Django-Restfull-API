@@ -2,8 +2,8 @@ from django.contrib.auth.models import User
 from rest_framework import viewsets
 from rest_framework.response import Response
 from api.serializers import UserSerializer
-from .models import Movie
-from .serializers import MovieSerializer
+from .models import Movie, Rate
+from .serializers import MovieSerializer, RateSerializer
 from django.http.response import HttpResponseNotAllowed
 from rest_framework.decorators import action
 
@@ -67,6 +67,8 @@ class MovieViewSet(viewsets.ModelViewSet):
         serializer = MovieSerializer(movies, many=True)
         return Response(serializer.data)
 
-
+class RateViewSet(viewsets.ModelViewSet):
+    queryset = Rate.objects.all()
+    serializer_class = RateSerializer
 
 

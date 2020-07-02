@@ -23,6 +23,11 @@ class Movie (models.Model):
     def name (self):
         return self.title + " (" + str(self.year) + ")"
 
+class Rate (models.Model):
+    descript = models.TextField(default='')
+    stars = models.IntegerField(default=3)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='rates')
+
 
 
 
