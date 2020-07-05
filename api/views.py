@@ -75,4 +75,12 @@ class ActorViewSet(viewsets.ModelViewSet):
     queryset = Actor.objects.all()
     serializer_class = ActorSerializer
 
+    @action(detail=True, methods=['post'])
+    def connect(self, request, **kwargs):
+        actor = self.get_object()
+        movie = Movie.objects.get(id=request.data['movie'])
+        actor.movies.add(movie)
+        serializer = ActorSerializer(actor, many=False)
+        return Response(serializer.data)
+
 
