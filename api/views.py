@@ -74,7 +74,6 @@ class RateViewSet(viewsets.ModelViewSet):
 class ActorViewSet(viewsets.ModelViewSet):
     queryset = Actor.objects.all()
     serializer_class = ActorSerializer
-
     @action(detail=True, methods=['post'])
     def connect(self, request, **kwargs):
         actor = self.get_object()

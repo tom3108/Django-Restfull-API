@@ -18,7 +18,15 @@ class RateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Rate
-        fields = ['descript', 'stars']
+        fields = ['id', 'descript', 'stars','movie']
+        #depth = 1
+    def update(self, instance, validated_data):
+        instance.descript =  validated_data.get('descript', instance.descript)
+        instance.stars = validated_data.get('stars', instance.descript)
+        instance.save()
+
+        return instance
+
 
 
 
@@ -29,6 +37,7 @@ class MovieSerializer(serializers.ModelSerializer):
         model = Movie
         fields = ['id', 'title', 'content', 'after_prem',
                   'premiere','year','imdb_rating','name','extra_info','rates']
+
 
 
 
