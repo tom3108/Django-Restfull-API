@@ -7,7 +7,7 @@ router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'movies', views.MovieViewSet, basename="Movie")
 router.register(r'rate', views.RateViewSet, basename="Rate")
-router.register(r'actor', views.ActorViewSet, basename="Actor")
+router.register(r'actors', views.ActorViewSet, basename="Actor")
 
 
 urlpatterns = [

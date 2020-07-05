@@ -33,8 +33,8 @@ class MovieSerializer(serializers.ModelSerializer):
 
 
 class ActorSerializer(serializers.ModelSerializer):
-    movies = MovieSerializer(many=True)
+    movies = MovieSerializer(many=True, read_only=True)
     class Meta:
         model = Actor
-        fields = ['name', 'surname', 'movies']
+        fields = ['id','name', 'surname', 'movies']
 
