@@ -31,7 +31,9 @@ class MovieViewSet(viewsets.ModelViewSet):
         #if request.user.is_staff:
         movie = Movie.objects.create(title=request.data['title'],
                                          content=request.data['content'],
-                                         after_prem=request.data['after_prem'])
+                                         after_prem=request.data['after_prem'],
+                                     year=request.data['year']
+                                     )
         serializer = MovieSerializer(movie, many=False)
         return Response(serializer.data)
         #else:
@@ -41,6 +43,7 @@ class MovieViewSet(viewsets.ModelViewSet):
         movie.title = request.data['title']
         movie.content = request.data['content']
         movie.after_prem = request.data['after_prem']
+        movie.year = request.data['year']
         movie.save()
         serializer = MovieSerializer(movie, many=False)
         return Response(serializer.data)
